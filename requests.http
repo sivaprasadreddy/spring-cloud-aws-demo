@@ -1,0 +1,11 @@
+### Publish a message
+POST http://localhost:8080/api/messages
+Content-Type: application/json
+
+{
+  "uuid": "918d791f-2d17-4b84-ac27-bcad61b3ff00",
+  "content": "Test message 12"
+}
+
+### Retrieve message by UUID
+GET http://localhost:8080/api/messages/918d791f-2d17-4b84-ac27-bcad61b3ff00
