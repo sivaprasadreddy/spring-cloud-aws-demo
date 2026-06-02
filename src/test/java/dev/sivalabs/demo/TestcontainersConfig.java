@@ -1,11 +1,10 @@
 package dev.sivalabs.demo;
 
+import io.floci.testcontainers.FlociContainer;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.DynamicPropertyRegistrar;
-import org.testcontainers.localstack.LocalStackContainer;
-import org.testcontainers.utility.DockerImageName;
 
 import java.util.UUID;
 
@@ -17,18 +16,18 @@ public class TestcontainersConfig {
 
     @Bean
     @ServiceConnection
-    LocalStackContainer localStackContainer() throws Exception {
-        LocalStackContainer localStack = new LocalStackContainer(DockerImageName.parse("localstack/localstack:4.0"));
-        localStack.start();
-        localStack.execInContainer("awslocal", "s3", "mb", "s3://" + BUCKET_NAME);
-        localStack.execInContainer(
-                "awslocal",
-                "sqs",
-                "create-queue",
-                "--queue-name",
+    FlociContainer flociContainer() throws Exception {
+        var floci = new FlociContainer();
+        floci.start();
+        floci.execInContainer("aws",
+                "--endpoint-url", "http://localhost:4566",
+                "s3", "mb", "s3://" + BUCKET_NAME);
+        floci.execInContainer("aws",
+                "--endpoint-url", "http://localhost:4566",
+                "sqs", "create-queue", "--queue-name",
                 QUEUE_NAME
         );
-        return localStack;
+        return floci;
     }
 
     @Bean

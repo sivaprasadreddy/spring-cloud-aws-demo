@@ -18,7 +18,7 @@ repositories {
 }
 
 ext {
-    set('awspringVersion', "4.0.0")
+    set('awspringVersion', "4.0.2")
 }
 
 dependencies {
@@ -31,8 +31,8 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
     testImplementation 'org.springframework.boot:spring-boot-testcontainers'
     testImplementation 'org.testcontainers:testcontainers-junit-jupiter'
-    implementation 'io.awspring.cloud:spring-cloud-aws-testcontainers'
-    testImplementation 'org.testcontainers:testcontainers-localstack'
+    testImplementation 'io.floci:testcontainers-floci:2.8.0'
+    testImplementation 'io.floci:spring-boot-testcontainers-floci:2.8.0'
     testImplementation 'org.awaitility:awaitility'
 }
 

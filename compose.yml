@@ -1,9 +1,10 @@
 services:
-  localstack:
-    image: localstack/localstack:4.0
-    environment:
-      AWS_ACCESS_KEY_ID: noop
-      AWS_SECRET_ACCESS_KEY: noop
-      AWS_DEFAULT_REGION: eu-central-1
+  floci:
+    image: floci/floci:latest
     ports:
       - "4566:4566"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./data:/app/data
+    environment:
+      AWS_DEFAULT_REGION: us-east-1
