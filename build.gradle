@@ -18,7 +18,7 @@ repositories {
 }
 
 ext {
-    set('awspringVersion', "4.0.0")
+    set('awspringVersion', "4.0.2")
 }
 
 dependencies {
