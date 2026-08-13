@@ -1,10 +1,10 @@
 services:
   floci:
-    image: floci/floci:latest
+    image: floci/floci:latest-compat
     ports:
       - "4566:4566"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./data:/app/data
+      - ./src/test/resources/floci-init/ready.d:/etc/floci/init/ready.d:ro
     environment:
       AWS_DEFAULT_REGION: us-east-1

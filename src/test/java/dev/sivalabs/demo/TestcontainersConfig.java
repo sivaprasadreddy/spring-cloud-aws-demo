@@ -5,6 +5,7 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.DynamicPropertyRegistrar;
+import org.testcontainers.containers.BindMode;
 
 import java.util.UUID;
 
@@ -17,7 +18,9 @@ public class TestcontainersConfig {
     @Bean
     @ServiceConnection
     FlociContainer flociContainer() throws Exception {
-        var floci = new FlociContainer();
+        var floci = new FlociContainer("floci/floci:latest-compat")
+                .withClasspathResourceMapping("/floci-init/ready.d/", "/etc/floci/init/ready.d/", BindMode.READ_ONLY)
+                ;
         floci.start();
         floci.execInContainer("aws",
                 "--endpoint-url", "http://localhost:4566",
